@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 
   section: {
     marginTop: 80,
-    // marginBottom: 10,
+    marginBottom: 10,
   },
 });
 

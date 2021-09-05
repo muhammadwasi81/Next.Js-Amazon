@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Head from 'next/head';
 import {
   AppBar,
@@ -9,11 +9,17 @@ import {
   Toolbar,
   Typography,
   CssBaseline,
+  Switch,
 } from '@material-ui/core';
 import useStyles from '../utils/styles';
 import NextLink from 'next/link';
+import { Store } from '../utils/Store';
+import Cookies from 'js-cookie';
 
 export default function Layout({ title, children, description }) {
+  const { state, dispatch } = useContext(Store);
+  const { darkMode } = state;
+
   const theme = createTheme({
     typography: {
       h1: {
@@ -33,7 +39,7 @@ export default function Layout({ title, children, description }) {
       },
     },
     palette: {
-      type: 'light',
+      type: darkMode ? 'dark' : 'light',
 
       primary: {
         main: '#f0c000',
@@ -46,6 +52,12 @@ export default function Layout({ title, children, description }) {
   });
 
   const classes = useStyles();
+
+  const darkModeChangeHandler = () => {
+    dispatch({ type: darkMode ? 'DARK_MODE_OFF' : 'DARK_MODE_ON' });
+    const newDarkValue = !darkMode;
+    Cookies.set('darkMode', newDarkValue ? 'ON' : 'OFF');
+  };
 
   return (
     <div>
@@ -67,6 +79,10 @@ export default function Layout({ title, children, description }) {
             </NextLink>
             <div className={classes.grow}></div>
             <div>
+              <Switch
+                checked={darkMode}
+                onChange={darkModeChangeHandler}
+              ></Switch>
               <NextLink href="/cart" passHref>
                 <Link>Cart</Link>
               </NextLink>
