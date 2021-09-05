@@ -5,6 +5,7 @@ import useStyles from '../utils/styles';
 
 export default function Layout({ children }) {
   const classes = useStyles();
+
   return (
     <div>
       <Head>
