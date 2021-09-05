@@ -10,13 +10,14 @@ import {
 import useStyles from '../utils/styles';
 import NextLink from 'next/link';
 
-export default function Layout({ children }) {
+export default function Layout({ title, children, description }) {
   const classes = useStyles();
 
   return (
     <div>
       <Head>
-        <title>Next Amazon</title>
+        <title>{title ? `${title} - Next Amazon` : 'Next Amazon'}</title>
+        {description && <meta name="description" content={description}></meta>}
       </Head>
 
       {/*  Navbar section  */}
