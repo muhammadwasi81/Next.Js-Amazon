@@ -20,6 +20,11 @@ const useStyles = makeStyles({
   main: {
     minHeight: '80vh',
   },
+
+  error: {
+    marginTop: '2rem',
+  },
+
   footer: {
     textAlign: 'center',
   },
