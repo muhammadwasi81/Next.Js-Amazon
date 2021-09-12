@@ -6,7 +6,6 @@ import {
   CardContent,
   CardMedia,
   Grid,
-  Link,
   Typography,
 } from '@material-ui/core';
 import Layout from '../components/Layout';
@@ -20,8 +19,8 @@ export default function Home() {
         <h1>Products</h1>
         <Grid container spacing={3}>
           {data.products.map((product) => (
-            <Grid item md={4} key={product.name}>
-              <Card>
+            <Grid item md={4} sm={6} key={product.name}>
+              <Card variant="outlined">
                 <NextLink href={`/product/${product.slug}`} passHref>
                   <CardActionArea>
                     <CardMedia

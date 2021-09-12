@@ -64,6 +64,11 @@ export default function Layout({ title, children, description }) {
       <Head>
         <title>{title ? `${title} - Next Amazon` : 'Next Amazon'}</title>
         {description && <meta name="description" content={description}></meta>}
+        <link
+          rel="icon"
+          sizes="32x32"
+          href="https://www.nicepng.com/png/detail/139-1392414_shopping-cart-ecommerce-shop-buy-store-checkout-svg.png"
+        />
       </Head>
 
       {/*  Navbar section  */}
