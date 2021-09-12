@@ -13,8 +13,8 @@ import {
 } from '@material-ui/core';
 import useStyles from '../utils/styles';
 import NextLink from 'next/link';
-import { Store } from '../utils/Store';
 import Cookies from 'js-cookie';
+import { Store } from '../utils/Store';
 
 export default function Layout({ title, children, description }) {
   const { state, dispatch } = useContext(Store);
@@ -60,7 +60,7 @@ export default function Layout({ title, children, description }) {
   };
 
   return (
-    <div>
+    <>
       <Head>
         <title>{title ? `${title} - Next Amazon` : 'Next Amazon'}</title>
         {description && <meta name="description" content={description}></meta>}
@@ -74,7 +74,7 @@ export default function Layout({ title, children, description }) {
       {/*  Navbar section  */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.navbar}>
+        <AppBar position="static" className={classes.navbar}>
           <Toolbar>
             <NextLink href="/" passHref>
               <Link>
@@ -106,6 +106,6 @@ export default function Layout({ title, children, description }) {
           <Typography>&copy; All right reserved. Next Amazon.</Typography>
         </footer>
       </ThemeProvider>
-    </div>
+    </>
   );
 }
