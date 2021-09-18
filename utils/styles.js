@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
 
   section: {
-    marginTop: 80,
+    marginTop: 10,
     marginBottom: 10,
   },
 });
