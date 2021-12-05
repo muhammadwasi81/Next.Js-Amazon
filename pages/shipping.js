@@ -43,13 +43,7 @@ export default function Shipping() {
   const submitHandler = ({ fullName, address, city, postalCode, country }) => {
     dispatch({
       type: 'SAVE_SHIPPING_ADDRESS',
-      payload: {
-        fullName,
-        address,
-        city,
-        postalCode,
-        country,
-      },
+      payload: { fullName, address, city, postalCode, country },
     });
     Cookies.set('shippingAddress', {
       fullName,
@@ -58,6 +52,7 @@ export default function Shipping() {
       postalCode,
       country,
     });
+    console.trace(shippingAddress);
     router.push('/payment');
   };
   return (

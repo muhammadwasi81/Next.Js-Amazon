@@ -42,6 +42,7 @@ export default function Payment() {
       dispatch({ type: 'SAVE_PAYMENT_METHOD', payload: paymentMethod });
       Cookies.set('paymentMethod', paymentMethod);
       router.push('/placeorder');
+      console.trace(paymentMethod);
     }
   };
   return (
