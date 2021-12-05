@@ -8,7 +8,6 @@ const useStyles = makeStyles({
       marginLeft: 10,
     },
   },
-
   brand: {
     fontWeight: 'bold',
     fontSize: '1.5rem',
@@ -16,20 +15,16 @@ const useStyles = makeStyles({
   grow: {
     flexGrow: 1,
   },
-
   main: {
     minHeight: '80vh',
   },
-
   error: {
     marginTop: '2rem',
   },
-
   footer: {
     marginTop: 10,
     textAlign: 'center',
   },
-
   section: {
     marginTop: 10,
     marginBottom: 10,
@@ -41,6 +36,9 @@ const useStyles = makeStyles({
   navbarButton: {
     color: '#ffffff',
     textTransform: 'initial',
+  },
+  transparentBackground: {
+    backgroundColor: 'transparent',
   },
 });
 
