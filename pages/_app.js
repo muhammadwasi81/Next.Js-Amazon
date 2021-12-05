@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import '../styles/globals.css';
 import { StoreProvider } from '../utils/Store';
+import { SnackbarProvider } from 'notistack';
 
 function MyApp({ Component, pageProps }) {
   //TODO: Fix issue of server side rendering of material-ui elements
@@ -11,9 +12,11 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
   return (
-    <StoreProvider>
-      <Component {...pageProps} />
-    </StoreProvider>
+    <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+      <StoreProvider>
+        <Component {...pageProps} />
+      </StoreProvider>
+    </SnackbarProvider>
   );
 }
 
