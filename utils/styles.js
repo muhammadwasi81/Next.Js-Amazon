@@ -20,6 +20,7 @@ const useStyles = makeStyles({
   },
   error: {
     marginTop: '2rem',
+    color: '#f04040',
   },
   footer: {
     marginTop: 10,

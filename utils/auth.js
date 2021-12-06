@@ -11,11 +11,10 @@ const signToken = (user) => {
 
     process.env.JWT_SECRET,
     {
-      expiresIn: '30d',
+      expiresIn: '31556926', // 1 year in second
     }
   );
 };
-
 const isAuth = async (req, res, next) => {
   const { authorization } = req.headers;
   if (authorization) {
@@ -25,8 +24,10 @@ const isAuth = async (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
       if (err) {
         res.status(401).send({ message: 'Token is not valid' });
+        console.log(err.message);
       } else {
         req.user = decode;
+        console.log(req.user);
         next();
       }
     });
@@ -34,4 +35,5 @@ const isAuth = async (req, res, next) => {
     res.status(401).send({ message: 'Token is not supplied' });
   }
 };
+
 export { signToken, isAuth };
