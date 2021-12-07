@@ -70,8 +70,11 @@ export default function Layout({ title, children, description }) {
   const loginClickHandler = (e) => {
     setAnchorEl(e.currentTarget);
   };
-  const loginMenuCloseHandler = () => {
+  const loginMenuCloseHandler = (e, redirect) => {
     setAnchorEl(null);
+    if (redirect) {
+      router.push(redirect);
+    }
   };
   const logoutClickHandler = () => {
     setAnchorEl(null);
@@ -86,11 +89,7 @@ export default function Layout({ title, children, description }) {
       <Head>
         <title>{title ? `${title} - Next Amazon` : 'Next Amazon'}</title>
         {description && <meta name="description" content={description}></meta>}
-        <link
-          rel="icon"
-          sizes="32x32"
-          href="https://www.nicepng.com/png/detail/139-1392414_shopping-cart-ecommerce-shop-buy-store-checkout-svg.png"
-        />
+        <link rel="shortcut icon" sizes="32x32" href="/public/favicon.ico" />
       </Head>
 
       {/*  Navbar section  */}
@@ -142,9 +141,17 @@ export default function Layout({ title, children, description }) {
                     open={Boolean(anchorEl)}
                     onClose={loginMenuCloseHandler}
                   >
-                    <MenuItem onClick={loginMenuCloseHandler}>Profile</MenuItem>
-                    <MenuItem onClick={loginMenuCloseHandler}>
-                      My account
+                    <MenuItem
+                      onClick={(e) => loginMenuCloseHandler(e, '/profile')}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem
+                      onClick={(e) =>
+                        loginMenuCloseHandler(e, '/order-history')
+                      }
+                    >
+                      Order History
                     </MenuItem>
                     <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
                   </Menu>

@@ -20,7 +20,6 @@ import NextLink from 'next/link';
 import Image from 'next/image';
 import { Store } from '../../utils/Store';
 import useStyles from '../../utils/styles';
-import CheckoutWizard from '../../components/CheckoutWizard';
 import { useRouter } from 'next/router';
 import { getError } from '../../utils/error';
 import axios from 'axios';
@@ -107,8 +106,9 @@ function Order({ params }) {
         const { data: clientId } = await axios.get('/api/keys/paypal', {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
+        console.log(JSON.stringify(clientId, null, 2));
         paypalDispatch({
-          type: 'resetOPtions',
+          type: 'resetOptions',
           value: {
             'client-id': clientId,
             currency: 'USD',
@@ -124,9 +124,11 @@ function Order({ params }) {
   function createOrder(data, actions) {
     return actions.order
       .create({
-        purchase_units: {
-          amount: { value: totalPrice },
-        },
+        purchase_units: [
+          {
+            amount: { value: totalPrice },
+          },
+        ],
       })
       .then((orderID) => {
         return orderID;

@@ -52,7 +52,7 @@ export default function Shipping() {
       postalCode,
       country,
     });
-    console.trace(shippingAddress);
+    console.log(shippingAddress);
     router.push('/payment');
   };
   return (
