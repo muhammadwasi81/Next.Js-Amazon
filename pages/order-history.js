@@ -1,27 +1,27 @@
-import React, { useContext, useEffect, useReducer } from 'react';
+import axios from 'axios';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import NextLink from 'next/link';
-import { Store } from '../utils/Store';
-import axios from 'axios';
-import { getError } from '../utils/error';
-import Layout from '../components/Layout';
+import NexLink from 'next/link';
+import React, { useEffect, useContext, useReducer } from 'react';
 import {
-  Button,
-  Card,
   CircularProgress,
   Grid,
   List,
   ListItem,
-  ListItemText,
-  Table,
-  TableBody,
-  TableCell,
   TableContainer,
+  Typography,
+  Card,
+  Table,
   TableHead,
   TableRow,
-  Typography,
+  TableCell,
+  TableBody,
+  Button,
+  ListItemText,
 } from '@material-ui/core';
+import { getError } from '../utils/error';
+import { Store } from '../utils/Store';
+import Layout from '../components/Layout';
 import useStyles from '../utils/styles';
 
 function reducer(state, action) {
@@ -38,7 +38,7 @@ function reducer(state, action) {
 }
 
 function OrderHistory() {
-  const state = useContext(Store);
+  const { state } = useContext(Store);
   const router = useRouter();
   const classes = useStyles();
   const { userInfo } = state;
@@ -69,24 +69,23 @@ function OrderHistory() {
   return (
     <Layout title="Order History">
       <Grid container spacing={1}>
-        <Grid item md={3} xs={12} sm={12} lg={3} xl={3}>
+        <Grid item md={3} xs={12}>
           <Card className={classes.section}>
             <List>
-              <NextLink href="/profile" passHref>
+              <NexLink href="/profile" passHref>
                 <ListItem button component="a">
                   <ListItemText primary="User Profile"></ListItemText>
                 </ListItem>
-              </NextLink>
-              <NextLink href="/order-history" passHref>
+              </NexLink>
+              <NexLink href="/order-history" passHref>
                 <ListItem selected button component="a">
                   <ListItemText primary="Order History"></ListItemText>
                 </ListItem>
-              </NextLink>
+              </NexLink>
             </List>
           </Card>
         </Grid>
-
-        <Grid item md={9} xs={12} sm={12} lg={9} xl={9}>
+        <Grid item md={9} xs={12}>
           <Card className={classes.section}>
             <List>
               <ListItem>
@@ -101,15 +100,15 @@ function OrderHistory() {
                   <Typography className={classes.error}>{error}</Typography>
                 ) : (
                   <TableContainer>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell align="right">ID</TableCell>
-                          <TableCell align="right">DATE</TableCell>
-                          <TableCell align="right">TOTAL</TableCell>
-                          <TableCell align="right">PAID</TableCell>
-                          <TableCell align="right">DELIVERED</TableCell>
-                          <TableCell align="right">ACTION</TableCell>
+                          <TableCell>ID</TableCell>
+                          <TableCell>DATE</TableCell>
+                          <TableCell>TOTAL</TableCell>
+                          <TableCell>PAID</TableCell>
+                          <TableCell>DELIVERED</TableCell>
+                          <TableCell>ACTION</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -128,9 +127,11 @@ function OrderHistory() {
                                 ? `delivered at ${order.deliveredAt}`
                                 : 'not delivered'}
                             </TableCell>
-                            <NextLink href={`/order/${order._id}`} passHref>
-                              <Button variant="contained">Details</Button>
-                            </NextLink>
+                            <TableCell>
+                              <NexLink href={`/order/${order._id}`} passHref>
+                                <Button variant="contained">Details</Button>
+                              </NexLink>
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
