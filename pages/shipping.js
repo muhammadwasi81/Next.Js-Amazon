@@ -1,15 +1,9 @@
+import { List, ListItem, Typography, TextField, Button } from '@mui/material';
+import { useRouter } from 'next/router';
 import React, { useContext, useEffect } from 'react';
-import {
-  Button,
-  List,
-  ListItem,
-  TextField,
-  Typography,
-} from '@material-ui/core';
 import Layout from '../components/Layout';
-import useStyles from '../utils/styles';
 import { Store } from '../utils/Store';
-import { useRouter } from 'next/dist/client/router';
+import useStyles from '../utils/styles';
 import Cookies from 'js-cookie';
 import { Controller, useForm } from 'react-hook-form';
 import CheckoutWizard from '../components/CheckoutWizard';
@@ -39,7 +33,6 @@ export default function Shipping() {
   }, []);
 
   const classes = useStyles();
-
   const submitHandler = ({ fullName, address, city, postalCode, country }) => {
     dispatch({
       type: 'SAVE_SHIPPING_ADDRESS',
@@ -53,12 +46,14 @@ export default function Shipping() {
       country,
     });
     router.push('/payment');
+    console.log(shippingAddress);
   };
+
   return (
     <Layout title="Shipping Address">
       <CheckoutWizard activeStep={1} />
       <form onSubmit={handleSubmit(submitHandler)} className={classes.form}>
-        <Typography component="h1" variant="h2">
+        <Typography component="h1" variant="h1">
           Shipping Address
         </Typography>
         <List>
@@ -67,7 +62,10 @@ export default function Shipping() {
               name="fullName"
               control={control}
               defaultValue=""
-              rules={{ required: true, minLength: 2 }}
+              rules={{
+                required: true,
+                minLength: 2,
+              }}
               render={({ field }) => (
                 <TextField
                   variant="outlined"
@@ -92,7 +90,10 @@ export default function Shipping() {
               name="address"
               control={control}
               defaultValue=""
-              rules={{ required: true, minLength: 2 }}
+              rules={{
+                required: true,
+                minLength: 2,
+              }}
               render={({ field }) => (
                 <TextField
                   variant="outlined"
@@ -183,12 +184,12 @@ export default function Shipping() {
                   fullWidth
                   id="country"
                   label="Country"
-                  error={Boolean(errors.city)}
+                  error={Boolean(errors.country)}
                   helperText={
                     errors.country
                       ? errors.country.type === 'minLength'
-                        ? 'country Code length is more than 1'
-                        : 'country Code is required'
+                        ? 'Country length is more than 1'
+                        : 'Country is required'
                       : ''
                   }
                   {...field}
@@ -197,7 +198,7 @@ export default function Shipping() {
             ></Controller>
           </ListItem>
           <ListItem>
-            <Button variant="contained" type="submit" color="primary" fullWidth>
+            <Button variant="contained" type="submit" fullWidth color="primary">
               Continue
             </Button>
           </ListItem>

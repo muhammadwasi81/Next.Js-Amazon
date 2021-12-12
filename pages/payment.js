@@ -8,7 +8,7 @@ import {
   Radio,
   RadioGroup,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import Layout from '../components/Layout';
 import CheckoutWizard from '../components/CheckoutWizard';
 import useStyles from '../utils/styles';
@@ -42,7 +42,7 @@ export default function Payment() {
       dispatch({ type: 'SAVE_PAYMENT_METHOD', payload: paymentMethod });
       Cookies.set('paymentMethod', paymentMethod);
       router.push('/placeorder');
-      console.log(paymentMethod);
+      console.log('Payment Method: ' + paymentMethod);
     }
   };
   return (

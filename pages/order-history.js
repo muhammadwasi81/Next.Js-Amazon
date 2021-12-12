@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import NexLink from 'next/link';
+import NextLink from 'next/link';
 import React, { useEffect, useContext, useReducer } from 'react';
 import {
   CircularProgress,
@@ -18,7 +18,7 @@ import {
   TableBody,
   Button,
   ListItemText,
-} from '@material-ui/core';
+} from '@mui/material';
 import { getError } from '../utils/error';
 import { Store } from '../utils/Store';
 import Layout from '../components/Layout';
@@ -72,16 +72,16 @@ function OrderHistory() {
         <Grid item md={3} xs={12}>
           <Card className={classes.section}>
             <List>
-              <NexLink href="/profile" passHref>
+              <NextLink href="/profile" passHref>
                 <ListItem button component="a">
                   <ListItemText primary="User Profile"></ListItemText>
                 </ListItem>
-              </NexLink>
-              <NexLink href="/order-history" passHref>
+              </NextLink>
+              <NextLink href="/order-history" passHref>
                 <ListItem selected button component="a">
                   <ListItemText primary="Order History"></ListItemText>
                 </ListItem>
-              </NexLink>
+              </NextLink>
             </List>
           </Card>
         </Grid>
@@ -128,9 +128,9 @@ function OrderHistory() {
                                 : 'not delivered'}
                             </TableCell>
                             <TableCell>
-                              <NexLink href={`/order/${order._id}`} passHref>
+                              <NextLink href={`/order/${order._id}`} passHref>
                                 <Button variant="contained">Details</Button>
-                              </NexLink>
+                              </NextLink>
                             </TableCell>
                           </TableRow>
                         ))}

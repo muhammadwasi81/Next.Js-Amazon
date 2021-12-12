@@ -11,7 +11,7 @@ import {
   Button,
   ListItemText,
   TextField,
-} from '@material-ui/core';
+} from '@mui/material';
 import { getError } from '../utils/error';
 import { Store } from '../utils/Store';
 import Layout from '../components/Layout';

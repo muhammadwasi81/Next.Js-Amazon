@@ -14,7 +14,7 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import Layout from '../../components/Layout';
 import NextLink from 'next/link';
 import Image from 'next/image';
@@ -41,12 +41,7 @@ function reducer(state, action) {
     case 'PAY_FAIL':
       return { ...state, loadingPay: false, errorPay: action.payload };
     case 'PAY_RESET':
-      return {
-        ...state,
-        loadingPay: false,
-        successPay: false,
-        errorPay: '',
-      };
+      return { ...state, loadingPay: false, successPay: false, errorPay: '' };
     default:
       state;
   }
@@ -106,7 +101,6 @@ function Order({ params }) {
         const { data: clientId } = await axios.get('/api/keys/paypal', {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
-        console.log(JSON.stringify(clientId, null, 2));
         paypalDispatch({
           type: 'resetOptions',
           value: {
@@ -121,6 +115,7 @@ function Order({ params }) {
   }, [order, successPay]);
   const { enqueueSnackbar } = useSnackbar();
 
+  debugger;
   function createOrder(data, actions) {
     return actions.order
       .create({
@@ -134,6 +129,8 @@ function Order({ params }) {
         return orderID;
       });
   }
+  console.log(createOrder());
+  // debugger;
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
@@ -153,6 +150,7 @@ function Order({ params }) {
       }
     });
   }
+  console.log(onApprove());
   function onError(err) {
     enqueueSnackbar(getError(err), { variant: 'error' });
   }

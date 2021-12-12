@@ -9,7 +9,7 @@ import {
   List,
   ListItem,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import Layout from '../../components/Layout';
 import NextLink from 'next/link';
 import Product from '../../models/Product';

@@ -6,7 +6,7 @@ import {
   ListItem,
   TextField,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import axios from 'axios';
 import NextLink from 'next/link';
 import Layout from '../components/Layout';

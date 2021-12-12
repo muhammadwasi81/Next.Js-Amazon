@@ -7,7 +7,7 @@ import {
   CardMedia,
   Grid,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import Layout from '../components/Layout';
 import NextLink from 'next/link';
 import db from '../utils/db';

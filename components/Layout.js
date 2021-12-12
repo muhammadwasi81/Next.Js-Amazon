@@ -3,7 +3,6 @@ import Head from 'next/head';
 import {
   AppBar,
   Container,
-  createTheme,
   Link,
   ThemeProvider,
   Toolbar,
@@ -14,7 +13,9 @@ import {
   Button,
   Menu,
   MenuItem,
-} from '@material-ui/core';
+  Fade,
+} from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 import useStyles from '../utils/styles';
 import NextLink from 'next/link';
 import Cookies from 'js-cookie';
@@ -50,13 +51,11 @@ export default function Layout({ title, children, description }) {
       primary: {
         main: '#f0c000',
       },
-
       secondary: {
         main: '#208080',
       },
     },
   });
-
   const classes = useStyles();
 
   const darkModeChangeHandler = () => {
@@ -85,13 +84,12 @@ export default function Layout({ title, children, description }) {
   };
 
   return (
-    <>
+    <div>
       <Head>
         <title>{title ? `${title} - Next Amazon` : 'Next Amazon'}</title>
         {description && <meta name="description" content={description}></meta>}
-        <link rel="shortcut icon" sizes="32x32" href="/public/favicon.ico" />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-
       {/*  Navbar section  */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -111,22 +109,25 @@ export default function Layout({ title, children, description }) {
               ></Switch>
               <NextLink href="/cart" passHref>
                 <Link>
-                  {cart.cartItems.length > 0 ? (
-                    <Badge
-                      color="secondary"
-                      badgeContent={cart.cartItems.length}
-                    >
-                      Cart
-                    </Badge>
-                  ) : (
-                    'Cart'
-                  )}
+                  <>
+                    {cart.cartItems.length > 0 ? (
+                      <Badge
+                        color="secondary"
+                        badgeContent={cart.cartItems.length}
+                      >
+                        Cart
+                      </Badge>
+                    ) : (
+                      'Cart'
+                    )}
+                  </>
                 </Link>
               </NextLink>
               {userInfo ? (
                 <>
                   <Button
-                    aria-controls="simple-menu"
+                    id="fade-button"
+                    aria-controls="fade-menu"
                     aria-haspopup="true"
                     onClick={loginClickHandler}
                     className={classes.navbarButton}
@@ -135,7 +136,11 @@ export default function Layout({ title, children, description }) {
                   </Button>
 
                   <Menu
-                    id="simple-menu"
+                    id="fade-menu"
+                    MenuListProps={{
+                      'aria-labelledby': 'fade-button',
+                    }}
+                    TransitionComponent={Fade}
                     anchorEl={anchorEl}
                     keepMounted
                     open={Boolean(anchorEl)}
@@ -153,6 +158,15 @@ export default function Layout({ title, children, description }) {
                     >
                       Order History
                     </MenuItem>
+                    {userInfo.isAdmin && (
+                      <MenuItem
+                        onClick={(e) =>
+                          loginMenuCloseHandler(e, '/admin/dashboard')
+                        }
+                      >
+                        Admin Dashboard
+                      </MenuItem>
+                    )}
                     <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
                   </Menu>
                 </>
@@ -171,6 +185,6 @@ export default function Layout({ title, children, description }) {
           <Typography>&copy; All right reserved. Next Amazon.</Typography>
         </footer>
       </ThemeProvider>
-    </>
+    </div>
   );
 }

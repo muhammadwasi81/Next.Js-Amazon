@@ -1,31 +1,31 @@
 import React, { useContext, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import {
-  Button,
-  Card,
-  CircularProgress,
-  Grid,
-  Link,
-  List,
-  ListItem,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from '@material-ui/core';
 import Layout from '../components/Layout';
+import { Store } from '../utils/Store';
 import NextLink from 'next/link';
 import Image from 'next/image';
-import { Store } from '../utils/Store';
+import {
+  Grid,
+  TableContainer,
+  Table,
+  Typography,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Link,
+  CircularProgress,
+  Button,
+  Card,
+  List,
+  ListItem,
+} from '@mui/material';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 import useStyles from '../utils/styles';
 import CheckoutWizard from '../components/CheckoutWizard';
-import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import { getError } from '../utils/error';
-import axios from 'axios';
 import Cookies from 'js-cookie';
 
 function PlaceOrder() {
@@ -52,7 +52,7 @@ function PlaceOrder() {
       router.push('/cart');
     }
   }, []);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { closeSnackbar, enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const placeOrderHandler = async () => {
     closeSnackbar();
@@ -75,6 +75,7 @@ function PlaceOrder() {
           },
         }
       );
+      console.log('Order data', data, data._id);
       dispatch({ type: 'CART_CLEAR' });
       Cookies.remove('cartItems');
       setLoading(false);
@@ -86,13 +87,13 @@ function PlaceOrder() {
   };
   return (
     <Layout title="Place Order">
-      <CheckoutWizard activeStep={3} />
-      <Typography variant="h1" component="h1">
+      <CheckoutWizard activeStep={3}></CheckoutWizard>
+      <Typography component="h1" variant="h1">
         Place Order
       </Typography>
 
-      <Grid container spacing={3}>
-        <Grid item md={9} xs={12} sm={12} lg={9} xl={9}>
+      <Grid container spacing={1}>
+        <Grid item md={9} xs={12}>
           <Card className={classes.section}>
             <List>
               <ListItem>
@@ -101,7 +102,6 @@ function PlaceOrder() {
                 </Typography>
               </ListItem>
               <ListItem>
-                {' '}
                 {shippingAddress.fullName}, {shippingAddress.address},{' '}
                 {shippingAddress.city}, {shippingAddress.postalCode},{' '}
                 {shippingAddress.country}
@@ -174,8 +174,7 @@ function PlaceOrder() {
             </List>
           </Card>
         </Grid>
-
-        <Grid item md={3} xs={12} sm={12} lg={3} xl={3}>
+        <Grid item md={3} xs={12}>
           <Card className={classes.section}>
             <List>
               <ListItem>
