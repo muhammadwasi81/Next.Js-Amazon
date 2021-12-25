@@ -1,8 +1,8 @@
-import React, { useEffect, useContext, useReducer } from 'react';
-import axios from 'axios';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import NextLink from 'next/link';
+import React, { useEffect, useContext, useReducer } from 'react'
+import axios from 'axios'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+import NextLink from 'next/link'
 import {
   CircularProgress,
   Grid,
@@ -14,56 +14,56 @@ import {
   ListItemText,
   CardContent,
   CardActions,
-} from '@mui/material';
-import { Bar } from 'react-chartjs-2';
-import { getError } from '../../utils/error';
-import { Store } from '../../utils/Store';
-import Layout from '../../components/Layout';
-import useStyles from '../../utils/styles';
+} from '@mui/material'
+import { Bar } from 'react-chartjs-2'
+import { getError } from '../../utils/error'
+import { Store } from '../../utils/Store'
+import Layout from '../../components/Layout'
+import useStyles from '../../utils/styles'
 
 function reducer(state, action) {
   switch (action.type) {
     case 'FETCH_REQUEST':
-      return { ...state, loading: true, error: '' };
+      return { ...state, loading: true, error: '' }
     case 'FETCH_SUCCESS':
-      return { ...state, loading: false, summary: action.payload, error: '' };
+      return { ...state, loading: false, summary: action.payload, error: '' }
     case 'FETCH_FAIL':
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload }
     default:
-      state;
+      state
   }
 }
 
 function AdminDashboard() {
-  const { state } = useContext(Store);
-  const router = useRouter();
-  const classes = useStyles();
-  const { userInfo } = state;
+  const { state } = useContext(Store)
+  const router = useRouter()
+  const classes = useStyles()
+  const { userInfo } = state
 
   const [{ loading, error, summary }, dispatch] = useReducer(reducer, {
     loading: true,
     summary: { salesData: [] },
     error: '',
-  });
+  })
 
   useEffect(() => {
     if (!userInfo) {
-      router.push('/login');
+      router.push('/login')
     }
     const fetchData = async () => {
       try {
-        dispatch({ type: 'FETCH_REQUEST' });
+        dispatch({ type: 'FETCH_REQUEST' })
         const { data } = await axios.get(`/api/admin/summary`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
-        });
-        dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        })
+        dispatch({ type: 'FETCH_SUCCESS', payload: data })
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) })
       }
-    };
-    console.log('Admin dashboard data' + userInfo.token);
-    fetchData();
-  }, []);
+    }
+    console.log('Admin dashboard data' + userInfo.token)
+    fetchData()
+  }, [])
   return (
     <Layout title="Admin Dashboard">
       <Grid container spacing={1}>
@@ -201,7 +201,7 @@ function AdminDashboard() {
         </Grid>
       </Grid>
     </Layout>
-  );
+  )
 }
 
-export default dynamic(() => Promise.resolve(AdminDashboard), { ssr: false });
+export default dynamic(() => Promise.resolve(AdminDashboard), { ssr: false })

@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-import Layout from '../components/Layout';
-import { Store } from '../utils/Store';
-import NextLink from 'next/link';
-import Image from 'next/image';
+import React, { useContext, useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
+import Layout from '../components/Layout'
+import { Store } from '../utils/Store'
+import NextLink from 'next/link'
+import Image from 'next/image'
 import {
   Grid,
   TableContainer,
@@ -19,45 +19,45 @@ import {
   Card,
   List,
   ListItem,
-} from '@mui/material';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import useStyles from '../utils/styles';
-import CheckoutWizard from '../components/CheckoutWizard';
-import { useSnackbar } from 'notistack';
-import { getError } from '../utils/error';
-import Cookies from 'js-cookie';
+} from '@mui/material'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import useStyles from '../utils/styles'
+import CheckoutWizard from '../components/CheckoutWizard'
+import { useSnackbar } from 'notistack'
+import { getError } from '../utils/error'
+import Cookies from 'js-cookie'
 
 function PlaceOrder() {
-  const classes = useStyles();
-  const router = useRouter();
-  const { state, dispatch } = useContext(Store);
+  const classes = useStyles()
+  const router = useRouter()
+  const { state, dispatch } = useContext(Store)
   const {
     userInfo,
     cart: { cartItems, shippingAddress, paymentMethod },
-  } = state;
-  const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.456 => 123.46
+  } = state
+  const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100 // 123.456 => 123.46
   const itemsPrice = round2(
     cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
-  );
-  const shippingPrice = itemsPrice > 200 ? 0 : 15;
-  const taxPrice = round2(itemsPrice * 0.15);
-  const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
+  )
+  const shippingPrice = itemsPrice > 200 ? 0 : 15
+  const taxPrice = round2(itemsPrice * 0.15)
+  const totalPrice = round2(itemsPrice + shippingPrice + taxPrice)
 
   useEffect(() => {
     if (!paymentMethod) {
-      router.push('/payment');
+      router.push('/payment')
     }
     if (cartItems.length === 0) {
-      router.push('/cart');
+      router.push('/cart')
     }
-  }, []);
-  const { closeSnackbar, enqueueSnackbar } = useSnackbar();
-  const [loading, setLoading] = useState(false);
+  }, [])
+  const { closeSnackbar, enqueueSnackbar } = useSnackbar()
+  const [loading, setLoading] = useState(false)
   const placeOrderHandler = async () => {
-    closeSnackbar();
+    closeSnackbar()
     try {
-      setLoading(true);
+      setLoading(true)
       const { data } = await axios.post(
         '/api/orders',
         {
@@ -74,17 +74,17 @@ function PlaceOrder() {
             authorization: `Bearer ${userInfo.token}`,
           },
         }
-      );
-      console.log('Place Order data: ', userInfo.token);
-      dispatch({ type: 'CART_CLEAR' });
-      Cookies.remove('cartItems');
-      setLoading(false);
-      router.push(`/order/${data._id}`);
+      )
+      console.log('Place Order data: ', userInfo.token)
+      dispatch({ type: 'CART_CLEAR' })
+      Cookies.remove('cartItems')
+      setLoading(false)
+      router.push(`/order/${data._id}`)
     } catch (err) {
-      setLoading(false);
-      enqueueSnackbar(getError(err), { variant: 'error' });
+      setLoading(false)
+      enqueueSnackbar(getError(err), { variant: 'error' })
     }
-  };
+  }
   return (
     <Layout title="Place Order">
       <CheckoutWizard activeStep={3} />
@@ -243,7 +243,7 @@ function PlaceOrder() {
         </Grid>
       </Grid>
     </Layout>
-  );
+  )
 }
 
-export default dynamic(() => Promise.resolve(PlaceOrder), { ssr: false });
+export default dynamic(() => Promise.resolve(PlaceOrder), { ssr: false })
