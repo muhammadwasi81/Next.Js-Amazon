@@ -75,7 +75,7 @@ function PlaceOrder() {
           },
         }
       );
-      console.log('Order data', data, data._id);
+      console.log('Place Order data: ', userInfo.token);
       dispatch({ type: 'CART_CLEAR' });
       Cookies.remove('cartItems');
       setLoading(false);
@@ -87,11 +87,10 @@ function PlaceOrder() {
   };
   return (
     <Layout title="Place Order">
-      <CheckoutWizard activeStep={3}></CheckoutWizard>
+      <CheckoutWizard activeStep={3} />
       <Typography component="h1" variant="h1">
         Place Order
       </Typography>
-
       <Grid container spacing={1}>
         <Grid item md={9} xs={12}>
           <Card className={classes.section}>

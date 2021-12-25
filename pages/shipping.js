@@ -46,7 +46,7 @@ export default function Shipping() {
       country,
     });
     router.push('/payment');
-    console.log(shippingAddress);
+    console.log('Shipping Address: ' + shippingAddress);
   };
 
   return (

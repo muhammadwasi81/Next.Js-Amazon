@@ -109,13 +109,13 @@ function Order({ params }) {
           },
         });
         paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
+        console.log('Load paypal script' + clientId);
       };
       loadPaypalScript();
     }
   }, [order, successPay]);
   const { enqueueSnackbar } = useSnackbar();
 
-  debugger;
   function createOrder(data, actions) {
     return actions.order
       .create({
@@ -126,11 +126,10 @@ function Order({ params }) {
         ],
       })
       .then((orderID) => {
+        console.log('Create Order id: ' + data + orderID);
         return orderID;
       });
   }
-  console.log(createOrder());
-  // debugger;
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
@@ -142,6 +141,7 @@ function Order({ params }) {
             headers: { authorization: `Bearer ${userInfo.token}` },
           }
         );
+        console.log('UserInfo.token: ' + userInfo.token + data);
         dispatch({ type: 'PAY_SUCCESS', payload: data });
         enqueueSnackbar('Order is paid', { variant: 'success' });
       } catch (err) {
@@ -150,7 +150,6 @@ function Order({ params }) {
       }
     });
   }
-  console.log(onApprove());
   function onError(err) {
     enqueueSnackbar(getError(err), { variant: 'error' });
   }
