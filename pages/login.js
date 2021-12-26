@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react'
 import {
   Button,
   Link,
@@ -6,57 +6,57 @@ import {
   ListItem,
   TextField,
   Typography,
-} from '@mui/material';
-import axios from 'axios';
-import NextLink from 'next/link';
-import Layout from '../components/Layout';
-import useStyles from '../utils/styles';
-import { Store } from '../utils/Store';
-import { useRouter } from 'next/dist/client/router';
-import Cookies from 'js-cookie';
-import { Controller, useForm } from 'react-hook-form';
-import { useSnackbar } from 'notistack';
+} from '@mui/material'
+import axios from 'axios'
+import NextLink from 'next/link'
+import Layout from '../components/Layout'
+import useStyles from '../utils/styles'
+import { Store } from '../utils/Store'
+import { useRouter } from 'next/dist/client/router'
+import Cookies from 'js-cookie'
+import { Controller, useForm } from 'react-hook-form'
+import { useSnackbar } from 'notistack'
 
 export default function Login() {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const router = useRouter();
-  const { redirect } = router.query; // login?redirect=/shipping
-  const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
+  } = useForm()
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const router = useRouter()
+  const { redirect } = router.query // login?redirect=/shipping
+  const { state, dispatch } = useContext(Store)
+  const { userInfo } = state
 
   useEffect(() => {
     if (userInfo) {
-      router.push('/');
+      router.push('/')
     }
-  }, []);
+  }, [])
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   const submitHandler = async ({ email, password }) => {
-    closeSnackbar();
+    closeSnackbar()
     try {
       const { data } = await axios.post('/api/users/login', {
         email,
         password,
-      });
-      dispatch({ type: 'USER_LOGIN', payload: data });
-      Cookies.set('userInfo', data);
-      router.push(redirect || '/');
-      enqueueSnackbar('User Login Successfully', { variant: 'success' });
+      })
+      dispatch({ type: 'USER_LOGIN', payload: data })
+      Cookies.set('userInfo', data)
+      router.push(redirect || '/')
+      enqueueSnackbar('User Login Successfully', { variant: 'success' })
     } catch (err) {
       enqueueSnackbar(
         err.response.data ? err.response.data.message : err.message,
         {
           variant: 'error',
         }
-      );
+      )
     }
-  };
+  }
 
   return (
     <Layout title="Login">
@@ -135,5 +135,5 @@ export default function Login() {
         </List>
       </form>
     </Layout>
-  );
+  )
 }

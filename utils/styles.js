@@ -1,4 +1,4 @@
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles({
   navbar: {
@@ -45,6 +45,6 @@ const useStyles = makeStyles({
   fullWidth: {
     width: '100%',
   },
-});
+})
 
-export default useStyles;
+export default useStyles

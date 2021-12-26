@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react';
-import Head from 'next/head';
+import React, { useContext, useState } from 'react'
+import Head from 'next/head'
 import {
   AppBar,
   Container,
   Link,
-  ThemeProvider,
   Toolbar,
   Typography,
   CssBaseline,
@@ -14,18 +13,19 @@ import {
   Menu,
   MenuItem,
   Fade,
-} from '@mui/material';
-import { createTheme } from '@mui/material/styles';
-import useStyles from '../utils/styles';
-import NextLink from 'next/link';
-import Cookies from 'js-cookie';
-import { Store } from '../utils/Store';
-import { useRouter } from 'next/router';
+  Box,
+} from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import useStyles from '../utils/styles'
+import NextLink from 'next/link'
+import Cookies from 'js-cookie'
+import { Store } from '../utils/Store'
+import { useRouter } from 'next/router'
 
 export default function Layout({ title, children, description }) {
-  const router = useRouter();
-  const { state, dispatch } = useContext(Store);
-  const { darkMode, cart, userInfo } = state;
+  const router = useRouter()
+  const { state, dispatch } = useContext(Store)
+  const { darkMode, cart, userInfo } = state
 
   const theme = createTheme({
     typography: {
@@ -34,19 +34,17 @@ export default function Layout({ title, children, description }) {
         fontWeight: 400,
         margin: '1rem 0',
       },
-
       h2: {
         fontSize: '1.4rem',
         fontWeight: 400,
         margin: '1rem 0',
       },
-
       body1: {
         fontWeight: 'normal',
       },
     },
     palette: {
-      type: darkMode ? 'dark' : 'light',
+      mode: darkMode ? 'dark' : 'light',
 
       primary: {
         main: '#f0c000',
@@ -55,33 +53,33 @@ export default function Layout({ title, children, description }) {
         main: '#208080',
       },
     },
-  });
-  const classes = useStyles();
+  })
+  const classes = useStyles()
 
   const darkModeChangeHandler = () => {
-    dispatch({ type: darkMode ? 'DARK_MODE_OFF' : 'DARK_MODE_ON' });
-    const newDarkValue = !darkMode;
-    Cookies.set('darkMode', newDarkValue ? 'ON' : 'OFF');
-  };
+    dispatch({ type: darkMode ? 'DARK_MODE_OFF' : 'DARK_MODE_ON' })
+    const newDarkValue = !darkMode
+    Cookies.set('darkMode', newDarkValue ? 'ON' : 'OFF')
+  }
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null)
 
   const loginClickHandler = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
+    setAnchorEl(e.currentTarget)
+  }
   const loginMenuCloseHandler = (e, redirect) => {
-    setAnchorEl(null);
+    setAnchorEl(null)
     if (redirect) {
-      router.push(redirect);
+      router.push(redirect)
     }
-  };
+  }
   const logoutClickHandler = () => {
-    setAnchorEl(null);
-    dispatch({ type: 'USER_LOGOUT' });
-    Cookies.remove('userInfo');
-    Cookies.remove('cartItems');
-    router.push('/');
-  };
+    setAnchorEl(null)
+    dispatch({ type: 'USER_LOGOUT' })
+    Cookies.remove('userInfo')
+    Cookies.remove('cartItems')
+    router.push('/')
+  }
 
   return (
     <div>
@@ -89,8 +87,8 @@ export default function Layout({ title, children, description }) {
         <title>{title ? `${title} - Next Amazon` : 'Next Amazon'}</title>
         {description && <meta name="description" content={description}></meta>}
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <meta name="theme-color" content={theme.palette.secondary.main} />
       </Head>
-      {/*  Navbar section  */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppBar position="static" className={classes.navbar}>
@@ -102,10 +100,12 @@ export default function Layout({ title, children, description }) {
               </Link>
             </NextLink>
             <div className={classes.grow}></div>
-            <div>
+            <Box>
               <Switch
                 checked={darkMode}
                 onChange={darkModeChangeHandler}
+                inputProps={{ 'aria-label': 'controlled' }}
+                color="secondary"
               ></Switch>
               <NextLink href="/cart" passHref>
                 <Link>
@@ -131,6 +131,7 @@ export default function Layout({ title, children, description }) {
                     aria-haspopup="true"
                     onClick={loginClickHandler}
                     className={classes.navbarButton}
+                    aria-expanded={open ? 'true' : undefined}
                   >
                     {userInfo.name}
                   </Button>
@@ -175,16 +176,17 @@ export default function Layout({ title, children, description }) {
                   <Link>Login</Link>
                 </NextLink>
               )}
-            </div>
+            </Box>
           </Toolbar>
         </AppBar>
 
         <Container className={classes.main}>{children}</Container>
 
         <footer className={classes.footer}>
-          <Typography>&copy; All right reserved. Next Amazon.</Typography>
+          <Typography>&copy; All right reserved. Next Amazon</Typography>
+          {new Date().getFullYear()}.
         </footer>
       </ThemeProvider>
     </div>
-  );
+  )
 }
