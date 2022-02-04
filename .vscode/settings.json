@@ -1,5 +1,12 @@
 {
-  "cSpell.ignoreWords": ["Casely", "haspopup", "placeorder", "successDeliver"],
+  "cSpell.ignoreWords": [
+    "Casely",
+    "cloudinary",
+    "haspopup",
+    "placeorder",
+    "streamifier",
+    "successDeliver"
+  ],
   "cSpell.customDictionaries": {
     "custom-dictionary-workspace": {
       "name": "custom-dictionary-workspace",

@@ -1,12 +1,12 @@
-import { List, ListItem, Typography, TextField, Button } from '@mui/material';
-import { useRouter } from 'next/router';
-import React, { useContext, useEffect } from 'react';
-import Layout from '../components/Layout';
-import { Store } from '../utils/Store';
-import useStyles from '../utils/styles';
-import Cookies from 'js-cookie';
-import { Controller, useForm } from 'react-hook-form';
-import CheckoutWizard from '../components/CheckoutWizard';
+import { List, ListItem, Typography, TextField, Button } from '@mui/material'
+import { useRouter } from 'next/router'
+import React, { useContext, useEffect } from 'react'
+import Layout from '../components/Layout'
+import { Store } from '../utils/Store'
+import useStyles from '../utils/styles'
+import Cookies from 'js-cookie'
+import { Controller, useForm } from 'react-hook-form'
+import CheckoutWizard from '../components/CheckoutWizard'
 
 export default function Shipping() {
   const {
@@ -14,40 +14,40 @@ export default function Shipping() {
     control,
     formState: { errors },
     setValue,
-  } = useForm();
-  const router = useRouter();
-  const { state, dispatch } = useContext(Store);
+  } = useForm()
+  const router = useRouter()
+  const { state, dispatch } = useContext(Store)
   const {
     userInfo,
     cart: { shippingAddress },
-  } = state;
+  } = state
   useEffect(() => {
     if (!userInfo) {
-      router.push('/login?redirect=/shipping');
+      router.push('/login?redirect=/shipping')
     }
-    setValue('fullName', shippingAddress.fullName);
-    setValue('address', shippingAddress.address);
-    setValue('city', shippingAddress.city);
-    setValue('postalCode', shippingAddress.postalCode);
-    setValue('country', shippingAddress.country);
-  }, []);
+    setValue('fullName', shippingAddress.fullName)
+    setValue('address', shippingAddress.address)
+    setValue('city', shippingAddress.city)
+    setValue('postalCode', shippingAddress.postalCode)
+    setValue('country', shippingAddress.country)
+  }, [])
 
-  const classes = useStyles();
+  const classes = useStyles()
   const submitHandler = ({ fullName, address, city, postalCode, country }) => {
     dispatch({
       type: 'SAVE_SHIPPING_ADDRESS',
       payload: { fullName, address, city, postalCode, country },
-    });
+    })
     Cookies.set('shippingAddress', {
       fullName,
       address,
       city,
       postalCode,
       country,
-    });
-    router.push('/payment');
-    console.log('Shipping Address: ' + shippingAddress);
-  };
+    })
+    router.push('/payment')
+    console.log('Shipping Address: ', shippingAddress)
+  }
 
   return (
     <Layout title="Shipping Address">
@@ -205,5 +205,5 @@ export default function Shipping() {
         </List>
       </form>
     </Layout>
-  );
+  )
 }

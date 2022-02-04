@@ -68,7 +68,7 @@ function reducer(state, action) {
       }
     }
     default: {
-      state
+      return state
     }
   }
 }
@@ -175,7 +175,6 @@ function Order({ params }) {
             headers: { authorization: `Bearer ${userInfo.token}` },
           }
         )
-        console.log('UserInfo.token: ' + userInfo.token + data)
         dispatch({ type: 'PAY_SUCCESS', payload: data })
         enqueueSnackbar('Order is paid', { variant: 'success' })
       } catch (err) {

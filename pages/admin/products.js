@@ -41,12 +41,12 @@ function reducer(state, action) {
       return { ...state, loading: false, error: action.payload }
     }
     default: {
-      state
+      return state
     }
   }
 }
 
-function AdminDashboard() {
+function HandleAdminProducts() {
   const { state } = useContext(Store)
   const router = useRouter()
   const classes = useStyles()
@@ -168,4 +168,6 @@ function AdminDashboard() {
     </Layout>
   )
 }
-export default dynamic(() => Promise.resolve(AdminDashboard), { ssr: false })
+export default dynamic(() => Promise.resolve(HandleAdminProducts), {
+  ssr: false,
+})

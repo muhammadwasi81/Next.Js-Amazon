@@ -61,7 +61,6 @@ function AdminDashboard() {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) })
       }
     }
-    console.log('Admin dashboard data' + userInfo.token)
     fetchData()
   }, [])
   return (
