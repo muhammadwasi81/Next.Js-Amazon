@@ -82,8 +82,10 @@ function UserEdit({ params }) {
             headers: { authorization: `Bearer ${userInfo.token}` },
           })
           setIsAdmin(data.isAdmin)
+          console.log(setIsAdmin(data.isAdmin))
           dispatch({ type: 'FETCH_SUCCESS' })
           setValue('name', data.name)
+          console.log(setValue('name', data.name))
         } catch (err) {
           dispatch({ type: 'FETCH_FAIL', payload: getError(err) })
         }
@@ -92,7 +94,7 @@ function UserEdit({ params }) {
     }
   }, [])
 
-  const submitHandler = async ({ name }) => {
+  const submitHandler = async ({ name, isAdmin }) => {
     closeSnackbar()
     try {
       dispatch({ type: 'UPDATE_REQUEST' })

@@ -147,6 +147,7 @@ function Order({ params }) {
       }
       loadPaypalScript()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order, successPay, successDeliver])
   const { enqueueSnackbar } = useSnackbar()
 
