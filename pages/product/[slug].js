@@ -231,7 +231,6 @@ export default function ProductScreen(props) {
                   >
                     Submit
                   </Button>
-
                   {loading && <CircularProgress></CircularProgress>}
                 </ListItem>
               </List>
