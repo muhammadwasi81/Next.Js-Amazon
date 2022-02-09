@@ -20,6 +20,7 @@ import {
   ListItem,
   Divider,
   ListItemText,
+  InputBase,
 } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import useStyles from '../utils/styles'
@@ -33,6 +34,7 @@ import { useSnackbar } from 'notistack'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { getError } from '../utils/error'
+import SearchIcon from '@mui/icons-material/Search'
 
 export default function Layout({ title, children, description }) {
   const router = useRouter()
@@ -89,6 +91,17 @@ export default function Layout({ title, children, description }) {
     }
   }
 
+  const [query, setQuery] = useState('')
+
+  const queryChangeHandler = (e) => {
+    setQuery(e.target.value)
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    router.push(`/search?query=${query}`)
+  }
+
   useEffect(() => {
     fetchCategories()
   }, [])
@@ -135,6 +148,7 @@ export default function Layout({ title, children, description }) {
                 edge="start"
                 aria-label="open drawer"
                 onClick={sidebarOpenHandler}
+                className={classes.menuButton}
               >
                 <MenuIcon className={classes.navbarButton} />
               </IconButton>{' '}
@@ -186,7 +200,23 @@ export default function Layout({ title, children, description }) {
                 ))}
               </List>
             </Drawer>
-            <div className={classes.grow}></div>
+            <div className={classes.searchSection}>
+              <form onSubmit={submitHandler} className={classes.searchForm}>
+                <InputBase
+                  name="query"
+                  className={classes.searchInput}
+                  placeholder="Search products"
+                  onChange={queryChangeHandler}
+                />
+                <IconButton
+                  type="submit"
+                  className={classes.iconButton}
+                  aria-label="search"
+                >
+                  <SearchIcon />
+                </IconButton>
+              </form>
+            </div>
             <Box>
               <Switch
                 checked={darkMode}
