@@ -62,6 +62,9 @@ export default makeStyles({
   menuButton: {
     padding: theme.spacing(0),
   },
+  mt1: {
+    marginTop: theme.spacing(2),
+  },
   // search
   searchSection: {
     display: 'none',
@@ -109,5 +112,8 @@ export default makeStyles({
     '& span': {
       color: '#000000',
     },
+  },
+  sort: {
+    marginRight: theme.spacing(2),
   },
 })
