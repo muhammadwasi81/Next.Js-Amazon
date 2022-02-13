@@ -24,7 +24,7 @@ const data = {
       category: 'Shirts',
       image: '/images/shirt1.jpg',
       isFeatured: true,
-      featuredImage: '/images/banner1.jpg',
+      featuredImage: '/images/banner2.jpg',
       price: 70,
       brand: 'Nike',
       rating: 4.5,
