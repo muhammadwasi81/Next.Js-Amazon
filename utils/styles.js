@@ -117,7 +117,7 @@ export default makeStyles({
     marginRight: theme.spacing(2),
   },
   featuredImage: {
-    height: '100%',
-    width: '100%',
+    minHeight: '100%',
+    minWidth: '100%',
   },
 })

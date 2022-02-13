@@ -42,7 +42,7 @@ export default function Home(props) {
             <Link>
               <img
                 // src={product.featuredImage}
-                src="/images/banner2.jpg"
+                src="/images/banner1.jpg"
                 alt={product.name}
                 className={classes.featuredImage}
               />
@@ -53,7 +53,7 @@ export default function Home(props) {
       <Typography variant="h2">Popular Products</Typography>
       <Grid container spacing={3}>
         {topRatedProducts.map((product) => (
-          <Grid item md={4} key={product.name}>
+          <Grid item md={4} sm={6} key={product.name}>
             <ProductItem
               product={product}
               addToCartHandler={addToCartHandler}

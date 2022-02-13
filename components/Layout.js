@@ -153,8 +153,7 @@ export default function Layout({ title, children, description }) {
                 <MenuIcon className={classes.navbarButton} />
               </IconButton>{' '}
               <NextLink href="/" passHref>
-                <Link>
-                  {' '}
+                <Link sx={{ textDecoration: 'none' }}>
                   <Typography className={classes.brand}>Amazon</Typography>
                 </Link>
               </NextLink>
@@ -225,7 +224,7 @@ export default function Layout({ title, children, description }) {
                 color="secondary"
               ></Switch>
               <NextLink href="/cart" passHref>
-                <Link>
+                <Link sx={{ textDecoration: 'none' }}>
                   <>
                     <Typography component="span">
                       {cart.cartItems.length > 0 ? (
@@ -292,7 +291,7 @@ export default function Layout({ title, children, description }) {
                 </>
               ) : (
                 <NextLink href="/login" passHref>
-                  <Link>
+                  <Link sx={{ textDecoration: 'none' }}>
                     <Typography component="span">Login</Typography>
                   </Link>
                 </NextLink>
