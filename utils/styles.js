@@ -116,8 +116,4 @@ export default makeStyles({
   sort: {
     marginRight: theme.spacing(2),
   },
-  featuredImage: {
-    minWidth: '100%',
-    maxHeight: '70vh',
-  },
 })
